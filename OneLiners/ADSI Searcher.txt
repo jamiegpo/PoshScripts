@@ -1,0 +1,51 @@
+([adsisearcher]"(samaccountname=$env:USERNAME)").FindOne().Properties['displayname']
+
+---
+
+#if remote:
+function Test-RemoteDomain {
+<#
+.Synopsis
+   Checks if the local machine is domain joined & prompts if not
+.DESCRIPTION
+   Checks if the local machine is domain joined & prompts if not. Allows for script to run from Azure joined machine
+.EXAMPLE
+   Test-RemoteDomain
+#>
+    [CmdletBinding()]
+    [Alias()]
+    [OutputType([DirectoryServices.DirectoryEntry])]
+    Param()
+
+    try
+    {
+        $domain = [System.DirectoryServices.ActiveDirectory.Domain]::GetComputerDomain() | select -ExpandProperty Name
+        $domaininfo = new-object DirectoryServices.DirectoryEntry
+    }
+    catch [System.Net.WebException],[System.Exception]
+    {
+        $domain = Read-Host "Please enter domain name"
+        $userName = Read-Host "Please enter your user samaccountname"
+        $userPassword = Read-Host "Please enter your password" -AsSecureString
+    
+
+        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($userPassword)
+        $UnsecurePassword = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)
+        $domaininfo = new-object DirectoryServices.DirectoryEntry("LDAP://{0}" -f $domain, ("{0}\{1}" -f $domain, $userName),$UnsecurePassword)
+    }
+
+}
+
+---
+
+$searchFilter = ("(&(objectCategory=user)(objectClass=user)(samaccountname={0}))" -f $samaccountname)
+$deSearcher = new-object System.DirectoryServices.DirectorySearcher 
+$deSearcher.Filter = $searchFilter
+$deSearcher.PageSize = 1000
+$deSearcher.PropertiesToLoad.Add("distinguishedname")
+$deSearcher.PropertiesToLoad.Add("lastlogontimestamp") | Out-Null
+$deSearcher.PropertiesToLoad.Add("msDS-ReplAttributeMetaData") | Out-Null
+$src = $deSearcher.FindAll()
+
+---
+[ADSI]"LDAP://{0}" -f $objDN

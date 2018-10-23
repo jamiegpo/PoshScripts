@@ -1,0 +1,19 @@
+#requires -Module ActiveDirectory
+ 
+function Get-NestedGroupMember
+{
+   param
+   (
+       [Parameter(Mandatory,ValueFromPipeline)]
+       [string]
+       $Identity
+   )
+ 
+   process
+   {
+       $user = Get-ADUser -Identity $Identity
+       $userdn = $user.DistinguishedName
+       $strFilter = "(member:1.2.840.113556.1.4.1941:=$userdn)"
+       Get-ADGroup -LDAPFilter $strFilter -ResultPageSize 1000
+   }
+} 

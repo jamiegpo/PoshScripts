@@ -1,0 +1,37 @@
+#
+#Function GetDCs {
+#	#Create a variable object called $myForest and assign the forest  that the computer is running part of.
+#	$myForest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+#
+#	#Connect to the Sites propery of the $myForest and for each of the sites list the domain controllers
+#	#$DCs = $myforest.Sites | % { $_.Servers }| Select Name, Domain  | out-file c:\temp\mydcs.txt
+#	$DCs = $myforest.Sites | % { $_.Servers } | Sort-Object Name
+#
+#	return $DCs
+#}
+#
+#$Array = @()
+#getDcs | % {
+#	$sDC = $_.Name
+#		$Object = New-Object PSObject
+#	$Object | Add-Member NoteProperty Name ($_.Name)
+#	$Object | Add-Member NoteProperty Site ($_.SiteName)
+#	$Object | Add-Member NoteProperty Domain ($_.Domain)
+#	$Object | Add-Member NoteProperty OS ($_.OSVersion)
+#	$Object | Add-Member NoteProperty IPAddress ($_.IPAddress)
+#	
+#	
+#	$Array += $Object
+#	}
+
+Function Get-DomainDCs {
+	$Domain = [System.DirectoryServices.ActiveDirectory.domain]::GetCurrentDomain()
+	return ($domain.DomainControllers | select Name)
+}
+
+
+Function Get-ForestDCs {
+	$myForest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+	$DCs = $myforest.Domains | % { $_.DomainControllers} | Sort-Object Name | select name
+	return ($DCs)
+}

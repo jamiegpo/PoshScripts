@@ -1,0 +1,59 @@
+$a = @()
+
+$Object = New-Object PSObject
+
+$Object | Add-Member NoteProperty Folder ($Folder)
+$Object | Add-Member NoteProperty Samid ("Not Found")
+$Object | Add-Member NoteProperty Name ("Not Found")
+$Object | Add-Member NoteProperty ProfilePath ("Not Found")
+
+$a += $object
+	
+$sLine = [string]$Object.Folder + "," + $Object.Samid + "," + """" + $Object.Name + """" + "," + $Object.ProfilePath
+
+-----------------
+
+$obj = [PSCustomObject]@{Property1 = 'server1';Property2 = 'two';Property3 = 'three'}
+
+$obj = [PSCustomObject]@{
+		Property1 = 'server1';
+		Property2 = 'two';
+		Property3 = 'three'
+}
+
+
+--------------
+
+$arr=@{}
+$arr["david"] = @{}
+$arr["david"]["TSHIRTS"] = @{}    
+$arr["david"]["TSHIRTS"]["SIZE"] ="M"
+$arr["david"]["TSHIRTS"]["Color"] ="Red"
+$arr.david.tshirts.size
+
+
+-----------
+
+foreach ($adapter in (Get-WmiObject @WMIParameters))
+        {
+            $AdapterProperties = @{
+                Server = $adapter.DNSHostName
+                Adapter =  $adapter.Description
+                IPAddress = $adapter.IpAddress
+                SubnetMask = $adapter.IPSubnet
+                DefaultGateway = $adapter.DefaultIPGateway
+                DNSServers = $adapter.DNSServerSearchOrder
+                DNSDomain = $adapter.DNSDomain
+            }
+           
+            New-Object PSObject -Property $AdapterProperties
+        }
+        
+ -----------       
+
+$object = [PSCustomObject]@{ 
+  Name = 'Weltner' 
+  ID = 123
+  Active = $true 
+} 
+        

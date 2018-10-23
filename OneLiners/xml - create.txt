@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<Locations>
+  <Location>
+    <Country>testCountry</Country>
+    <City>testcity</City>
+    <Building>testBuilding</Building>
+    <Floor>testFloor</Floor>
+  </Location>
+  <Location>
+    <Country>testCountry2</Country>
+    <City>testcity2</City>
+    <Building>testBuilding2</Building>
+    <Floor>testFloor2</Floor>
+  </Location>
+ <Locations>
+ 
+ 
+$OutputXML = New-Object xml;
+[System.Xml.XmlDeclaration] $xmlDeclaration = $OutputXML.CreateXmlDeclaration("1.0", "UTF-16", $null);
+$OutputXML.AppendChild($xmlDeclaration) | Out-Null;
+
+# Create root Locations element
+$locationsElement = $OutputXML.CreateElement("Locations");
+$OutputXML.AppendChild($locationsElement) | Out-Null;
+
+
+#Create Location
+$locationElement = $OutputXML.CreateElement("Location");
+$locationsElement.AppendChild($locationElement)
+
+#Create location elements
+$countryElement = $OutputXML.CreateElement("Country");
+$countryElement.InnerText = "testCountry"
+$locationElement.AppendChild($countryElement)
+
+$cityElement = $OutputXML.CreateElement("City");
+$cityElement.InnerText = "testCity"
+$locationElement.AppendChild($cityElement)
+
+$buildingElement = $OutputXML.CreateElement("Building");
+$buildingElement.InnerText = "testBuilding"
+$locationElement.AppendChild($buildingElement)
+
+$floorElement = $OutputXML.CreateElement("Floor");
+$floorElement.InnerText = "testFloor"
+$locationElement.AppendChild($floorElement)
+
+
+#Create Location
+$locationElement = $OutputXML.CreateElement("Location");
+$locationsElement.AppendChild($locationElement)
+
+#Create location elements
+$countryElement = $OutputXML.CreateElement("Country");
+$countryElement.InnerText = "testCountry2"
+$locationElement.AppendChild($countryElement) | out-null
+
+$cityElement = $OutputXML.CreateElement("City");
+$cityElement.InnerText = "testCity2"
+$locationElement.AppendChild($cityElement) | out-null
+
+$buildingElement = $OutputXML.CreateElement("Building");
+$buildingElement.InnerText = "testBuilding2"
+$locationElement.AppendChild($buildingElement) | out-null
+
+$floorElement = $OutputXML.CreateElement("Floor");
+$floorElement.InnerText = "testFloor2"
+$locationElement.AppendChild($floorElement) | out-null
+
+
+-------------------------------------------
+
+<Locations>
+  <Location Country="testCountry" City="testCity" Building="testBuilding" Floor="testFloor"></Location>
+  <Location Country="testCountry2" City="testCity2" Building="testBuilding2" Floor="testFloor2"></Location>
+</Locations>
+
+
+$OutputXML = New-Object xml;
+[System.Xml.XmlDeclaration] $xmlDeclaration = $OutputXML.CreateXmlDeclaration("1.0", "UTF-16", $null);
+$OutputXML.AppendChild($xmlDeclaration) | Out-Null;
+
+# Create root Locations element
+$locationsElement = $OutputXML.CreateElement("Locations");
+$OutputXML.AppendChild($locationsElement) | Out-Null;
+
+# Create child Location element
+$locationElement = $OutputXML.CreateElement("Location");
+$locationElement.SetAttribute("Country", "testCountry");
+$locationElement.SetAttribute("City", "testCity");
+$locationElement.SetAttribute("Building", "testBuilding");
+$locationElement.SetAttribute("Floor", "testFloor");
+$locationsElement.AppendChild($locationElement)| Out-Null;
+
+# Create 2nd child Location element
+$locationElement = $OutputXML.CreateElement("Location");
+$locationElement.SetAttribute("Country", "testCountry2");
+$locationElement.SetAttribute("City", "testCity2");
+$locationElement.SetAttribute("Building", "testBuilding2");
+$locationElement.SetAttribute("Floor", "testFloor2");
+
+$locationsElement.AppendChild($locationElement)| Out-Null;
+
+
+---------------------------------------------
+
+http://srichallagolla.blogspot.co.uk/2012/08/xml-powershell-creating-new-child.html

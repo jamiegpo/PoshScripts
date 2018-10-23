@@ -1,0 +1,4 @@
+get-aduser testuser1 | Set-ADUser -clear Extensionattribute1
+get-aduser testuser1 | Set-ADUser -clear Extensionattribute2
+
+get-aduser testuser1 | set-aduser -Add @{extensionAttribute1="SomeString"}

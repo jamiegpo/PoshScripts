@@ -1,0 +1,6 @@
+# A status code of 0 indicates success. Any other code indicates a failure.
+
+$ComputerName = 'fqdn.domain.com'
+$TimeoutMillisec = 1000
+ 
+Get-WmiObject -Class Win32_PingStatus -Filter "Address='$ComputerName' and timeout=$TimeoutMillisec" | Select-Object -Property Address, StatusCode 

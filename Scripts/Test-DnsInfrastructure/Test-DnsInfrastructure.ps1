@@ -48,8 +48,6 @@ function Get-ScriptConstantsFromJsonFile {
 
 }
 
-
-
 #endregion ################# Functions #################
 
 # Get Variables

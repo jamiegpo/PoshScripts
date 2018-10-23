@@ -1,0 +1,10 @@
+# Get all DCs
+# Use when no AD cmdlets
+#https://gallery.technet.microsoft.com/scriptcenter/Find-a-working-domain-fe731b4f
+
+$domain = "contoso.com"
+$cred = get-credential
+$username = $Cred.username
+$password = $Cred.GetNetworkCredential().password
+$ADcontext = New-Object System.DirectoryServices.ActiveDirectory.DirectoryContext("domain",$domain,$username,$password)
+$AllDCs = ([system.directoryservices.activedirectory.domain]::GetDomain($ADcontext).domainControllers)

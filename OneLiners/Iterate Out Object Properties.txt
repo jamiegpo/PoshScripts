@@ -1,0 +1,1 @@
+(Get-QADUser someuser -IncludeAllProperties).psobject.properties | ? {$_.value -like "*0131*"}

@@ -1,0 +1,4 @@
+Add, Modify, Verify, and Sort Your PowerShell Array - http://blogs.technet.com/b/heyscriptingguy/archive/2011/12/06/add-modify-verify-and-sort-your-powershell-array.aspx
+Find the Index Number of a Value in a PowerShell Array - http://blogs.technet.com/b/heyscriptingguy/archive/2011/12/07/find-the-index-number-of-a-value-in-a-powershell-array.aspx
+Multidimensional Arrays - http://blogs.technet.com/b/heyscriptingguy/archive/2011/12/09/easily-create-and-manipulate-an-array-of-arrays-in-powershell.aspx
+

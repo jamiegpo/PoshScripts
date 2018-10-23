@@ -1,0 +1,38 @@
+$ob1 = "foo"
+"Begin test"
+$ErrorActionPreference = "stop"
+Try
+ {
+  Get-Content foo
+  "Attempting to create new object $ob1"
+   $a = new-object $ob1
+   "Members of the $ob1"
+   "New object $ob1 created"
+   $a | Get-Member
+ }
+Catch [System.Management.Automation.PSArgumentException]
+ {
+  "invalid object"
+ }
+Catch [system.exception]
+ {
+  "caught a system exception"
+ }
+Catch
+ {
+  "caught the rest"
+ }
+Finally
+ {
+  "end of script"
+ }
+
+
+https://learn-powershell.net/2015/04/09/quick-hits-finding-exception-types-with-powershell/
+
+$Error[0].exception.GetType().fullname
+
+https://kevinmarquette.github.io/2017-04-10-Powershell-exceptions-everything-you-ever-wanted-to-know/
+https://learn-powershell.net/2015/04/09/quick-hits-finding-exception-types-with-powershell/
+
+http://powershell.com/cs/blogs/tobias/archive/2008/09/29/trapping-errors.aspx
