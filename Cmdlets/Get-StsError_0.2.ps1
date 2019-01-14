@@ -1,6 +1,5 @@
 # Used to troubleshoot ADFS/STS error messages displayed to users
 # Returns the events log entries and the server they occurred on given a the event Reference number
-# Note this will not work on exteral events
 
 $stsServers = @("stsServer1.contoso.com", "stsServer1.contoso.com")
 $adfsServers = @("stsServer1.contoso2.com", "stsServer1.contoso2.com")
