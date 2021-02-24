@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "Updating apt-get and installing JQ..."
 apt-get -qq update
